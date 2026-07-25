@@ -265,6 +265,21 @@ Full details in [ROADMAP.md](ROADMAP.md).
 
 ---
 
+## Project Statistics
+
+| Component | Lines |
+|-----------|-------|
+| Python (apps + core library) | 12,373 |
+| Shell scripts (build + system) | 391 |
+| PKGBUILDs (14 packages) | 267 |
+| System configuration files | 733 |
+| Desktop entries | 92 |
+| Documentation (Markdown) | 4,199 |
+| CI/CD workflows (YAML) | 191 |
+| **Total** | **~18,246** |
+
+---
+
 ## License
 
 HyperOS is free software licensed under the **GNU General Public License v3.0**. See [LICENSE](LICENSE).

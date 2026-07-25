@@ -26,6 +26,12 @@
 - [x] Plymouth theme
 - [x] Full code audit and bug fixes
 - [x] Build system fixes (mkinitcpio, syslinux, loader.conf)
+- [x] ISO build debugging (stale mounts, resolv.conf, /dev/null)
+- [x] SDDM configuration (DisplayServer=x11, auto-login)
+- [x] Serial console for debugging (SERIAL 0 115200)
+- [x] GitHub CI/CD pipeline
+- [x] Application screenshots for README
+- [x] Project statistics documentation
 
 ## In Progress
 

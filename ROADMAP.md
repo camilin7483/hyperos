@@ -47,12 +47,12 @@ HyperOS has a bootable ISO with all 10 GUI applications. The ISO boots successfu
 - [x] GitHub CI/CD pipeline
 - [x] Bug fixing and polish
 
-### v0.6 — Testing & CI
+### v0.6 — Testing & Polish
 
 - [ ] Test ISO on real hardware (USB boot, SDDM + Hyprland + all apps)
 - [ ] Fix initramfs microcode embedding (`/dev/stdin` missing in mkinitcpio)
-- [ ] Add screenshots to README (Hyper Welcome, Hyper Center, Hyper Settings, Hyper Store)
-- [ ] CI: build packages in container before ISO (remove dependency on local-repo/)
+- [x] ~~Add screenshots to README~~ (done v0.5)
+- [x] ~~CI: build packages in container~~ (done v0.5)
 - [ ] Unit test coverage for all packages
 - [ ] Performance: move all subprocess calls to QThread workers
 - [ ] Hyper Assistant LLM integration (Ollama)

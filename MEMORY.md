@@ -1,8 +1,16 @@
 # HyperOS Memory
 
-## Project State — v0.5 (ISO Build & VM Testing)
+## Project State — v0.5 (Stable ISO)
 
-HyperOS now has a bootable ISO with all 10 GUI applications. The ISO build process was debugged and fixed, SDDM configured for X11 compatibility, and GitHub push completed.
+HyperOS has a bootable ISO with all 10 GUI applications. The ISO build process was debugged and fixed, SDDM configured for X11 compatibility, GitHub CI/CD pipeline operational, and real application screenshots added to README.
+
+## Project Statistics
+
+- **~18,246 lines** of code total
+- **12,373 lines** Python (apps + core library)
+- **14 PKGBUILDs** for system packages
+- **5 GUI applications** with screenshots in README
+- **GitHub Actions** CI/CD for automated builds
 
 ## Implemented Applications
 
