@@ -19,9 +19,14 @@ jobs:
           pacman -Syu --noconfirm
           pacman -S --noconfirm base-devel archiso git python python-build python-installer python-wheel python-setuptools
 
+      - name: Create build user
+        run: |
+          useradd -m builduser
+          chown -R builduser:builduser .
+
       - name: Build all packages
         run: |
-          ./scripts/package.sh
+          runuser -u builduser -- ./scripts/package.sh
 
       - name: Set up local repository
         run: |
