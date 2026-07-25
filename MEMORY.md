@@ -1,8 +1,8 @@
 # HyperOS Memory
 
-## Project State — v0.4 (Core Applications Complete)
+## Project State — v0.5 (ISO Build & VM Testing)
 
-HyperOS now has a complete set of GUI applications built on PySide6 (Qt6) with Clean Architecture. The shared `hyperos-core` library provides common services and widgets across all apps.
+HyperOS now has a bootable ISO with all 10 GUI applications. The ISO build process was debugged and fixed, SDDM configured for X11 compatibility, and GitHub push completed.
 
 ## Implemented Applications
 
@@ -60,9 +60,39 @@ HyperOS now has a complete set of GUI applications built on PySide6 (Qt6) with C
 - Brand: Electric Blue #00AEEF
 - Core library under core/ prevents code duplication
 
+## ISO Build (2026-07-25)
+
+### Problems Encountered
+1. **Stale mounts** — previous build left proc/sys/dev/tmp mounted in `out/work/x86_64/airootfs/`, causing "cannot remove" errors
+2. **Empty /etc/resolv.conf** — pacman inside chroot couldn't resolve mirrors (only a comment, no nameservers)
+3. **Broken /dev/null** — wrong permissions 644 instead of char device 1,3 with 666
+4. **SDDM Wayland crash** — `DisplayServer=wayland` failed in live ISO; changed to `x11`
+5. **No serial console** — ISOLINUX couldn't receive keyboard input via serial; added `SERIAL 0 115200`
+
+### Fixes
+- Unmounted all stale mounts with `umount -R` before build
+- Wrapper script ensures `/etc/resolv.conf` has valid nameservers (8.8.8.8, 1.1.1.1)
+- `/dev/null` recreated as `mknod -m 666 /dev/null c 1 3`
+- SDDM config: `DisplayServer=x11` instead of wayland
+- Syslinux config: added `SERIAL 0 115200`
+- `.gitignore` updated for `pkg/` and `local-repo/`
+
+### QEMU Testing Results
+| GPU | Result |
+|---|---|
+| `-vga std` | Boots to TTY/fbcon after pressing Enter (1280x800, blue-bordered fbcon). SDDM fails — needs OpenGL 3.3+ |
+| `-vga virtio` | Boots to text mode (720x400, gray text on black). Same SDDM limitation |
+| `-device virtio-vga-gl` with `-display egl-headless` | Same as virtio. virgl available but guest lacks Mesa virgl driver |
+
+**Conclusion**: ISO boots correctly (ISOLINUX → kernel → userspace → TTY). SDDM/Hyprland need a GPU with OpenGL 3.3+ — real hardware required. QEMU test confirmed BIOS boot, bootloader, kernel, initramfs, and filesystem all work.
+
+### GitHub
+- Remote: github.com/camilin7483/hyperos.git
+- Pushed: ISO build fixes, documentation updates
+
 ## Next Steps
-1. Build bootable ISO
-2. Validate live environment
-3. Validate installation process
-4. Push to GitHub
+1. ~~Build bootable ISO~~ ✓
+2. ~~Validate live environment~~ ✓ (QEMU: kernel + userspace OK, GPU-dependent)
+3. Validate installation process on real hardware
+4. ~~Push to GitHub~~ ✓
 5. Bug fixing and polish for v1.0

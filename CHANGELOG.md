@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.5.0 — ISO Build & VM Testing (2026-07-25)
+
+### Added
+- QEMU testing scripts with VNC screenshot capture (Python RFB protocol)
+- GPU compatibility testing: std VGA, virtio, virtio-gl
+- Build wrapper script (`/tmp/build-iso-wrapper.sh`) with automated /etc/resolv.conf fix
+
+### Fixed
+- **SDDM**: Changed `DisplayServer` from wayland to x11 — Wayland greeter crashed in live ISO
+- **Syslinux**: Added `SERIAL 0 115200` for serial console debugging
+- **Pacman chroot**: Fixed empty `/etc/resolv.conf` during ISO build (nameservers missing → mirror resolution failure)
+- **Stale mounts**: Clean umount of previous build artifacts (`out/work/`)
+- **Broken /dev/null**: Recreated as char device 1,3 with 666 permissions
+
+### Known Issues
+- Initramfs: `/dev/stdin` not found during mkinitcpio microcode hook — early_cpio empty
+  - UEFI boots with external intel-ucode.img / amd-ucode.img
+  - BIOS (syslinux) boot won't have microcode updates
+- SDDM/Hyprland require GPU with OpenGL 3.3+ — cannot fully test in QEMU (only TTY/fbcon)
+
 ## v0.4.0 — Core Applications (2026-07-25)
 
 ### Added

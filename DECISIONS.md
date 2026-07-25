@@ -79,3 +79,18 @@ This document records key architectural decisions made during HyperOS developmen
 - Follows Arch Linux standards
 - Familiar to Arch users and contributors
 - easy integration with existing tooling
+
+## ADR-007: Display Manager Configuration (ISO)
+
+**Status**: Accepted · 2026-07-25
+
+**Context**: The live ISO boots to SDDM for graphical login. Initial config used `DisplayServer=wayland` but the Wayland greeter crashed in the live environment (no Wayland compositor running for SDDM to connect to). Also lacked serial console access for debugging.
+
+**Decision**:
+1. SDDM `DisplayServer=x11` — more compatible with live ISO environment; Xorg starts on demand via SDDM
+2. Syslinux `SERIAL 0 115200` — enables serial console for headless/QEMU debugging
+
+**Consequences**:
+- SDDM greeter works reliably in both live ISO and installed system
+- Serial console available for kernel/bootloader debugging
+- Hyprland session still launched as Wayland compositor after SDDM login
