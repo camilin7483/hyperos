@@ -17,22 +17,21 @@ jobs:
       - name: Install dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm base-devel archiso git python python-build python-installer python-wheel python-setuptools
+          pacman -S --noconfirm base-devel archiso git python python-build python-installer python-wheel python-setuptools python-pyside6
 
       - name: Create build user
         run: |
           useradd -m builduser
           chown -R builduser:builduser .
 
-      - name: Build all packages
+      - name: Build hyperos-core first
         run: |
-          runuser -u builduser -- ./scripts/package.sh
+          runuser -u builduser -- bash -c 'cd core && makepkg -s --noconfirm'
 
       - name: Set up local repository
         run: |
           mkdir -p local-repo
           cp core/*.pkg.tar.* local-repo/ 2>/dev/null || true
-          cp packages/hyper-*/*.pkg.tar.* local-repo/ 2>/dev/null || true
           repo-add local-repo/hyperos-local.db.tar.gz local-repo/*.pkg.tar.* 2>/dev/null || true
 
       - name: Configure pacman for local repo
@@ -43,6 +42,10 @@ jobs:
           Server = file:///__w/hyperos/hyperos/local-repo
           SigLevel = Never
           EOF
+
+      - name: Build all packages
+        run: |
+          runuser -u builduser -- ./scripts/package.sh
 
       - name: Lint
         run: |
