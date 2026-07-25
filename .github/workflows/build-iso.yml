@@ -18,8 +18,10 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      - name: Build ISO
+      - name: Build and test
         run: |
+          ./scripts/lint.sh
+          ./scripts/test.sh
           ./scripts/build-iso.sh
 
       - name: Upload ISO
