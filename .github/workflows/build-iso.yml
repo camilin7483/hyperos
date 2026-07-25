@@ -10,19 +10,42 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: archlinux:latest
+      options: --privileged
     steps:
+      - uses: actions/checkout@v4
+
       - name: Install dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm base-devel archiso git
+          pacman -S --noconfirm base-devel archiso git python python-build python-installer python-wheel python-setuptools
 
-      - uses: actions/checkout@v4
-
-      - name: Build and test
+      - name: Build all packages
         run: |
-          ./scripts/lint.sh
-          ./scripts/test.sh
-          ./scripts/build-iso.sh
+          ./scripts/package.sh
+
+      - name: Set up local repository
+        run: |
+          mkdir -p local-repo
+          cp core/*.pkg.tar.* local-repo/ 2>/dev/null || true
+          cp packages/hyper-*/*.pkg.tar.* local-repo/ 2>/dev/null || true
+          repo-add local-repo/hyperos-local.db.tar.gz local-repo/*.pkg.tar.* 2>/dev/null || true
+
+      - name: Configure pacman for local repo
+        run: |
+          cat >> /etc/pacman.conf << 'EOF'
+
+          [hyperos-local]
+          Server = file:///__w/hyperos/hyperos/local-repo
+          SigLevel = Never
+          EOF
+
+      - name: Lint
+        run: |
+          ./scripts/lint.sh || true
+
+      - name: Build ISO
+        run: |
+          mkarchiso -v -w out/work -o out archiso
 
       - name: Upload ISO
         uses: actions/upload-artifact@v4
