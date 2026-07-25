@@ -18,7 +18,13 @@
 
 ## Screenshots
 
-> *Coming soon — screenshots of Hyper Welcome, Hyper Center, Hyper Settings, and Hyper Store.*
+| Hyper Welcome | Hyper Center |
+|---|---|
+| ![Hyper Welcome](assets/screenshots/hyper-welcome.png) | ![Hyper Center](assets/screenshots/hyper-center.png) |
+| **Hyper Settings** | **Hyper Store** |
+| ![Hyper Settings](assets/screenshots/hyper-settings.png) | ![Hyper Store](assets/screenshots/hyper-store.png) |
+| **Hyper Update** | |
+| ![Hyper Update](assets/screenshots/hyper-update.png) | |
 
 ---
 
@@ -114,7 +120,7 @@ hyperos/
 │   ├── airootfs/          # Live environment overlay
 │   ├── efiboot/           # UEFI systemd-boot configuration
 │   ├── grub/              # GRUB bootloader configuration
-│   ├── isolinux/          # BIOS isolinux configuration
+│   ├── syslinux/          # BIOS syslinux configuration
 │   ├── pacman.conf        # Pacman configuration for the ISO
 │   ├── packages.x86_64    # Package list for the live environment
 │   └── profiledef.sh      # ArchISO profile definition
