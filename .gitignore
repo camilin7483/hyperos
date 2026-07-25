@@ -7,5 +7,7 @@ build/
 *.pkg.tar.*
 out/
 work/
+pkg/
+local-repo/
 .vscode/
 .idea/
