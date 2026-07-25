@@ -1,0 +1,15 @@
+# Maintainer: HyperOS Team
+pkgname=hyper-cli
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="HyperOS Command-Line Tools"
+arch=('x86_64')
+url="https://hyperos.org"
+license=('GPL3')
+depends=('python')
+source=()
+sha256sums=('SKIP')
+
+package() {
+    install -Dm755 "$startdir/src/main.py" "$pkgdir/usr/bin/$pkgname"
+}

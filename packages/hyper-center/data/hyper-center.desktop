@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Hyper Center
+Comment=HyperOS control center
+Exec=/usr/bin/hyper-center
+Type=Application
+Icon=hyper-center
+Categories=System;Settings;
+Terminal=false
+StartupNotify=true

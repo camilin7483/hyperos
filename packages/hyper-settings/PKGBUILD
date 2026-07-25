@@ -1,0 +1,19 @@
+# Maintainer: HyperOS Team
+pkgname=hyper-settings
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="HyperOS system settings"
+arch=('x86_64')
+url="https://hyperos.org"
+license=('GPL3')
+depends=('python' 'python-pyside6' 'hyperos-core')
+makedepends=('python-build' 'python-installer' 'python-wheel')
+source=()
+sha256sums=('SKIP')
+build() { cd "$startdir/src"; python -m build --wheel --no-isolation; }
+package() {
+    cd "$startdir/src"
+    python -m installer --destdir="$pkgdir" dist/*.whl
+    install -Dm644 "$startdir/data/hyper-settings.desktop" "$pkgdir/usr/share/applications/hyper-settings.desktop"
+    install -Dm644 "$startdir/assets/icons/hyper-settings.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/hyper-settings.svg"
+}

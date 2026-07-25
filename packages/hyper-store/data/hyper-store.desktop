@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Hyper Store
+Comment=HyperOS software center
+Exec=/usr/bin/hyper-store
+Type=Application
+Icon=hyper-store
+Categories=System;
+Terminal=false
+StartupNotify=true

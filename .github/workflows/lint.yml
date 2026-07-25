@@ -1,0 +1,38 @@
+name: Lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: ShellCheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          scandir: ./scripts
+
+      - name: Check required files
+        run: |
+          for file in README.md LICENSE ARCHITECTURE.md CONTRIBUTING.md ROADMAP.md BUILD.md; do
+            if [ ! -f "$file" ]; then
+              echo "Missing required file: $file"
+              exit 1
+            fi
+          done
+
+      - name: Check PKGBUILD syntax
+        run: |
+          for pkgbuild in $(find packages -name "PKGBUILD" -type f); do
+            bash -n "$pkgbuild" || exit 1
+          done
+
+      - name: Markdown lint
+        uses: DavidAnson/markdownlint-cli2-action@v16
+        with:
+          globs: '*.md docs/**/*.md'

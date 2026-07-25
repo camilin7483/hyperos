@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Hyper Settings
+Comment=HyperOS system settings
+Exec=/usr/bin/hyper-settings
+Type=Application
+Icon=hyper-settings
+Categories=System;Settings;
+Terminal=false
+StartupNotify=true

@@ -1,0 +1,25 @@
+# PKGBUILD Template for HyperOS Packages
+# Copy this template and customize for each package
+
+# maintainer=
+# pkgname=hyper-<name>
+# pkgver=0.1.0
+# pkgrel=1
+# pkgdesc="HyperOS <description>"
+# arch=('x86_64')
+# url="https://hyperos.org"
+# license=('GPL3')
+# depends=('python' 'hyper-core')
+# makedepends=('python-build')
+# source=("$pkgname-$pkgver.tar.gz")
+# sha256sums=('SKIP')
+#
+# build() {
+#     cd "$srcdir/$pkgname-$pkgver"
+#     python -m build --wheel --no-isolation
+# }
+#
+# package() {
+#     cd "$srcdir/$pkgname-$pkgver"
+#     python -m installer --destdir="$pkgdir" dist/*.whl
+# }

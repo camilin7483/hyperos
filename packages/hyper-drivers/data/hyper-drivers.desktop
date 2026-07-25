@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Hyper Drivers
+Comment=HyperOS driver manager
+Exec=/usr/bin/hyper-drivers
+Type=Application
+Icon=hyper-drivers
+Categories=System;
+Terminal=false
+StartupNotify=true

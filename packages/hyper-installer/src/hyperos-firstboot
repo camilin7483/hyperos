@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+#
+# hyperos-firstboot — First boot configuration for HyperOS
+#
+
+set -euo pipefail
+
+FIRSTBOOT_DONE="/var/lib/hyperos/firstboot-done"
+
+if [ -f "$FIRSTBOOT_DONE" ]; then
+    exit 0
+fi
+
+echo "[hyperos] Running first boot configuration..."
+
+# TODO: Configure locale
+# TODO: Create user
+# TODO: Set up desktop environment
+# TODO: Enable services
+
+mkdir -p "$(dirname "$FIRSTBOOT_DONE")"
+touch "$FIRSTBOOT_DONE"
+
+echo "[hyperos] First boot configuration complete."

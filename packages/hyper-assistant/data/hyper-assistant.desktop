@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Hyper Assistant
+Comment=HyperOS AI assistant
+Exec=/usr/bin/hyper-assistant
+Type=Application
+Icon=hyper-assistant
+Categories=System;
+Terminal=false
+StartupNotify=true

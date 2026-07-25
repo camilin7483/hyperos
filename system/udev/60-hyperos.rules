@@ -1,0 +1,11 @@
+# HyperOS udev rules
+
+# Set CPU governor to schedutil for performance
+SUBSYSTEM=="cpu", ACTION=="add", TEST=="cpuidle", TEST@="cpufreq/scaling_governor", RUN+="/bin/sh -c 'echo schedutil > /sys/devices/system/cpu/cpufreq/policy?/scaling_governor'"
+
+# Power management for USB devices
+ACTION=="add", SUBSYSTEM=="usb", ATTR{power/control}="auto"
+ACTION=="add", SUBSYSTEM=="usb", ATTR{power/autosuspend}="2"
+
+# Power management for PCI devices
+ACTION=="add", SUBSYSTEM=="pci", ATTR{power/control}="auto"

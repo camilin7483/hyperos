@@ -1,0 +1,13 @@
+# HyperOS GRUB Theme
+# Status: Placeholder
+
+title-text: "HyperOS"
+title-font: "DejaVu Sans Bold 24"
+title-color: "#FFFFFF"
+desktop-image: "background.png"
+desktop-color: "#1A1A1A"
+terminal-font: "DejaVu Sans Mono 12"
+terminal-left: "25%"
+terminal-top: "35%"
+terminal-width: "50%"
+terminal-height: "30%"

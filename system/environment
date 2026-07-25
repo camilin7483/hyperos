@@ -1,0 +1,18 @@
+# HyperOS System Environment
+# /etc/environment
+
+# Default editor
+EDITOR=nano
+
+# Locale
+LANG=en_US.UTF-8
+
+# GTK theme
+GTK_THEME=Adwaita-dark
+
+# QT theme
+QT_STYLE_OVERRIDE=adwaita-dark
+
+# Wayland
+XDG_SESSION_TYPE=wayland
+XDG_CURRENT_DESKTOP=Hyprland

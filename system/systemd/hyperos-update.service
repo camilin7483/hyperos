@@ -1,0 +1,13 @@
+[Unit]
+Description=HyperOS System Update Check
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/hyperos-update --check
+Nice=19
+IOSchedulingClass=idle
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,86 @@
+# HyperOS Live Environment Packages
+
+# Base system
+base
+base-devel
+linux-zen
+linux-zen-headers
+linux-firmware
+
+# Boot
+grub
+efibootmgr
+syslinux
+
+# Graphics
+mesa
+vulkan-intel
+vulkan-radeon
+nvidia-dkms
+nvidia-utils
+nvidia-settings
+hyprland
+hyprpaper
+hyprlock
+hypridle
+waybar
+rofi-lbonn-wayland
+wofi
+kitty
+dolphin
+swaync
+
+# Networking
+networkmanager
+network-manager-applet
+iwd
+wireless-regdb
+openssh
+
+# Audio
+pipewire
+pipewire-pulse
+pipewire-jack
+wireplumber
+pavucontrol
+
+# System utilities
+sudo
+polkit
+polkit-gnome
+xdg-utils
+xdg-user-dirs
+ntfs-3g
+exfat-utils
+dosfstools
+btrfs-progs
+e2fsprogs
+fsck
+util-linux
+
+# Display manager
+sddm
+
+# Compression
+squashfs-tools
+xz
+
+# Python / Qt
+python
+python-pyside6
+
+# Development (live)
+git
+vim
+nano
+
+# HyperOS packages
+hyperos-core
+hyper-center
+hyper-settings
+hyper-update
+hyper-store
+hyper-drivers
+hyper-backup
+hyper-assistant
+hyper-welcome

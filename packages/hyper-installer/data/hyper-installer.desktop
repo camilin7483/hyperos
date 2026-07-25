@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=HyperOS Installer
+Comment=Install HyperOS on this computer
+Exec=/usr/bin/hyper-installer
+Type=Application
+Icon=hyper-installer
+Categories=System;
+Terminal=false
+StartupNotify=true
+NoDisplay=true

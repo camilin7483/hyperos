@@ -1,0 +1,4 @@
+# Valid login shells
+/usr/bin/bash
+/usr/bin/zsh
+/usr/bin/sh

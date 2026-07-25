@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hyper-center"
+version = "0.1.0"
+description = "HyperOS central control center"
+license = { text = "GPL-3.0-or-later" }
+authors = [{ name = "HyperOS Team" }]
+requires-python = ">=3.11"
+dependencies = ["PySide6>=6.6", "hyperos-core>=0.1.0"]
+
+[project.scripts]
+hyper-center = "hyper_center.app:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["hyper_center*"]

@@ -1,0 +1,30 @@
+name: Build ISO
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-iso:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+    steps:
+      - name: Install dependencies
+        run: |
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm base-devel archiso git
+
+      - uses: actions/checkout@v4
+
+      - name: Build ISO
+        run: |
+          ./scripts/build-iso.sh
+
+      - name: Upload ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: hyperos-iso
+          path: out/*.iso
+          if-no-files-found: error

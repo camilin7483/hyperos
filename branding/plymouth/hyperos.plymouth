@@ -1,0 +1,4 @@
+[Plymouth Theme]
+Name=HyperOS
+Description=HyperOS Boot Splash
+ModuleName=script

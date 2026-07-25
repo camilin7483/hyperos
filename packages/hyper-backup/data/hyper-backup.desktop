@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Hyper Backup
+Comment=HyperOS backup manager
+Exec=/usr/bin/hyper-backup
+Type=Application
+Icon=hyper-backup
+Categories=System;
+Terminal=false
+StartupNotify=true

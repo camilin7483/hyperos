@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+#
+# hyperos-before — Pre-boot configuration for HyperOS live environment
+#
+
+set -euo pipefail
+
+echo "[hyperos] Applying live environment configuration..."
+
+# Set up networking
+systemctl start NetworkManager >/dev/null 2>&1 || true
+
+# Configure pacman keyring
+if [ ! -f /etc/pacman.d/gnupg/secring.gpg ]; then
+    echo "[hyperos] Initializing pacman keyring..."
+    pacman-key --init >/dev/null 2>&1
+    pacman-key --populate archlinux >/dev/null 2>&1
+fi
+
+echo "[hyperos] Ready."

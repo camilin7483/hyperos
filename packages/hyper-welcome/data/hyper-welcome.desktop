@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Hyper Welcome
+Comment=HyperOS first-boot welcome screen
+Exec=/usr/bin/hyper-welcome
+Type=Application
+Icon=hyper-welcome
+Categories=System;
+Terminal=false
+StartupNotify=true
+NoDisplay=true

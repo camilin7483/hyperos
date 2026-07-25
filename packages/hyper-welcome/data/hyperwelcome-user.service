@@ -1,0 +1,14 @@
+[Unit]
+Description=HyperOS Welcome Screen
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/hyper-welcome
+RemainAfterExit=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=graphical-session.target

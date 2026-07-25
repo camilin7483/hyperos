@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Hyper Update
+Comment=HyperOS system updater
+Exec=/usr/bin/hyper-update
+Type=Application
+Icon=hyper-update
+Categories=System;
+Terminal=false
+StartupNotify=true

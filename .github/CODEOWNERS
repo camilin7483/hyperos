@@ -1,0 +1,16 @@
+# HyperOS Code Owners
+
+* @hyperos/maintainers
+
+# Core infrastructure
+/core/ @hyperos/core-team
+
+# Applications
+/apps/ @hyperos/apps-team
+
+# Build system
+/archiso/ @hyperos/build-team
+/scripts/ @hyperos/build-team
+
+# Documentation
+*.md @hyperos/docs-team

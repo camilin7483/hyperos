@@ -1,0 +1,17 @@
+# Maintainer: HyperOS Team
+pkgname=hyper-tools
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="HyperOS System Utilities"
+arch=('x86_64')
+url="https://hyperos.org"
+license=('GPL3')
+depends=('bash' 'coreutils')
+source=()
+sha256sums=('SKIP')
+
+package() {
+    for script in "$startdir/src/"*; do
+        [ -f "$script" ] && install -Dm755 "$script" "$pkgdir/usr/bin/"
+    done
+}

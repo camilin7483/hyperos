@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+#
+# hyperos-welcome — Welcome screen for HyperOS live environment
+#
+
+echo "========================================"
+echo "  Welcome to HyperOS Live!"
+echo "  Arch-based · Hyprland · Performance"
+echo "========================================"
+echo ""
+echo "Quick commands:"
+echo "  hyprland    — Start the desktop environment"
+echo "  setup       — Run the installer (future)"
+echo "  help        — Show this message"
+echo ""
+echo "Documentation: https://hyperos.org/docs"
+echo "========================================"

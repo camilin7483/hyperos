@@ -1,0 +1,20 @@
+{
+  "welcome.title": "Welcome to HyperOS",
+  "welcome.subtitle": "Arch Linux · Hyprland · Performance First",
+  "welcome.version": "Version {version}",
+  "system.cpu": "CPU",
+  "system.ram": "RAM",
+  "system.gpu": "GPU",
+  "system.storage": "Storage",
+  "system.kernel": "Kernel",
+  "system.desktop": "Desktop",
+  "action.open_hyper_center": "Open Hyper Center",
+  "action.install_software": "Install Software",
+  "action.documentation": "Documentation",
+  "action.github": "GitHub",
+  "action.settings": "Settings",
+  "action.exit": "Exit",
+  "status.connected": "Connected",
+  "status.disconnected": "No connection",
+  "status.checking": "Checking connection..."
+}
