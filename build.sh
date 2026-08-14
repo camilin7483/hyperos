@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2035
 # HyperOS Build System - FASE C: Packaging Real
 # Este script construye todos los paquetes HyperOS de manera reproducible
 
@@ -8,7 +9,6 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 WORKSPACE="${SCRIPT_DIR}"
 PACKAGES_DIR="${WORKSPACE}/packages"
 CORE_DIR="${WORKSPACE}/core"
-DAEMON_DIR="${WORKSPACE}/packages/hyperos-daemon"
 BUILD_DIR="${WORKSPACE}/build"
 REPO_DIR="${BUILD_DIR}/repository"
 ARTIFACTS_DIR="${BUILD_DIR}/artifacts"
@@ -155,7 +155,8 @@ build_package() {
     cd "${pkg_dir}"
     
     # Leer versión del PKGBUILD
-    local pkgver=$(grep '^pkgver=' PKGBUILD | cut -d'=' -f2)
+    local pkgver
+    pkgver=$(grep '^pkgver=' PKGBUILD | cut -d'=' -f2)
     
     # Fixear source si está vacío
     if grep -q 'source=(".")' PKGBUILD || grep -q 'source=()' PKGBUILD; then
@@ -275,11 +276,13 @@ run_tests() {
     [[ -d "${CORE_DIR}" ]] || { log_error "core/ no existe"; return 1; }
     
     # Test 2: Verificar PKGBUILDs existentes
-    local pkgbuild_count=$(find "${PACKAGES_DIR}" -name "PKGBUILD" | wc -l)
+    local pkgbuild_count
+    pkgbuild_count=$(find "${PACKAGES_DIR}" -name "PKGBUILD" | wc -l)
     log_info "Encontrados ${pkgbuild_count} PKGBUILDs"
     
     # Test 3: Verificar pyproject.toml en cada paquete
-    local pyproject_count=$(find "${PACKAGES_DIR}" -name "pyproject.toml" | wc -l)
+    local pyproject_count
+    pyproject_count=$(find "${PACKAGES_DIR}" -name "pyproject.toml" | wc -l)
     log_info "Encontrados ${pyproject_count} pyproject.toml"
     
     # Test 4: Verificar hyperos-core

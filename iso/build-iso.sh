@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2012,SC2035
 # Build script for HyperOS ISO using archiso
 # This script builds a bootable ISO image with all HyperOS components
 

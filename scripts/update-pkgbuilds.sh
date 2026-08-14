@@ -7,7 +7,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 update_pkgbuild() {
     local pkg_dir="$1"
-    local pkg_name=$(basename "$pkg_dir")
+    local pkg_name
+    pkg_name=$(basename "$pkg_dir")
     local pkgbuild="${pkg_dir}/PKGBUILD"
     
     if [[ ! -f "$pkgbuild" ]]; then
@@ -16,11 +17,12 @@ update_pkgbuild() {
     fi
     
     # Leer metadata existente
-    local pkgdesc=$(grep "^pkgdesc=" "$pkgbuild" | cut -d'"' -f2)
-    local depends_line=$(grep "^depends=" "$pkgbuild")
-    local has_python=$(echo "$depends_line" | grep -c "'python'" || true)
-    local has_pyside6=$(echo "$depends_line" | grep -c "'python-pyside6'" || true)
-    local has_hyperos_core=$(echo "$depends_line" | grep -c "'hyperos-core'" || true)
+    local pkgdesc depends_line has_python has_pyside6 has_hyperos_core
+    pkgdesc=$(grep "^pkgdesc=" "$pkgbuild" | cut -d'"' -f2)
+    depends_line=$(grep "^depends=" "$pkgbuild")
+    has_python=$(echo "$depends_line" | grep -c "'python'" || true)
+    has_pyside6=$(echo "$depends_line" | grep -c "'python-pyside6'" || true)
+    has_hyperos_core=$(echo "$depends_line" | grep -c "'hyperos-core'" || true)
     
     # Verificar si es paquete Python con src/
     local has_src=false
@@ -95,9 +97,11 @@ EOF
         if [[ -f "${pkg_dir}/src/main.py" ]]; then
             echo "    install -Dm755 \"\${srcdir}/src/main.py\" \"\${pkgdir}/usr/bin/\${pkgname}\"" >> "$pkgbuild"
         elif [[ -d "${pkg_dir}/src" ]]; then
-            echo "    for script in \"\${srcdir}/\"*; do" >> "$pkgbuild"
-            echo "        [ -f \"\$script\" ] && install -Dm755 \"\$script\" \"\${pkgdir}/usr/bin/\"" >> "$pkgbuild"
-            echo "    done" >> "$pkgbuild"
+            {
+                echo "    for script in \"\${srcdir}/\"*; do"
+                echo "        [ -f \"\$script\" ] && install -Dm755 \"\$script\" \"\${pkgdir}/usr/bin/\""
+                echo "    done"
+            } >> "$pkgbuild"
         fi
     fi
     

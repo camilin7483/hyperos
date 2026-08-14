@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2086,SC2329
 # Automated script for HyperOS Live Environment
 # This script runs on first boot of the Live ISO
 

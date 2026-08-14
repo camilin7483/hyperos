@@ -139,8 +139,8 @@ REQUIRED_PACKAGES=(
 
 if command -v pacman &> /dev/null; then
     log_info "Installing packages with pacman..."
-    # In real implementation: sudo pacman -S --needed ${REQUIRED_PACKAGES[@]}
-    log_success "Package installation would execute here"
+    sudo pacman -S --needed --noconfirm "${REQUIRED_PACKAGES[@]}"
+    log_success "Packages installed successfully"
 elif command -v apt &> /dev/null; then
     log_warning "Detected Debian-based system. HyperOS is designed for Arch Linux."
 else

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Profile definition for HyperOS ISO
 # Built on top of Arch Linux with Hyprland and HyperOS applications
+# shellcheck disable=SC1091,SC2034  # Sourced por mkarchiso
 
 source /usr/share/archiso/configs/default/profiledef.sh
 

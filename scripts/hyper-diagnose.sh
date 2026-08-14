@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2126,SC2162
 # HyperOS Diagnostic Tool - Real hardware validation
 # Usage: hyper-diagnose [--full|--desktop|--network|--audio|--gpu|--portal]
 
@@ -273,7 +274,7 @@ case "$MODE" in
             log_info "Disk usage:"
             df -h / /home /boot 2>/dev/null | tail -n +2 | while read line; do
                 log_info "  $line"
-            fi
+            done
         fi
         echo ""
 

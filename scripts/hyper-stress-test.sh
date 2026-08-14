@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC2086
 # HyperOS Stress Test Suite - Reliability Validation
 # Usage: ./hyper-stress-test.sh [--boot|--suspend|--install|--all]
 

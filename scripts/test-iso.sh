@@ -102,8 +102,8 @@ run_qemu() {
         -enable-kvm  # Hardware acceleration if available
         -m "$RAM_SIZE"
         -smp "$CPU_CORES"
-        -drive if=pflash,format=raw,readonly=on,file="$UEFI_CODE"
-        -drive if=pflash,format=raw,file="$UEFI_VARS_TMP"
+        "-drive if=pflash,format=raw,readonly=on,file=$UEFI_CODE"
+        "-drive if=pflash,format=raw,file=$UEFI_VARS_TMP"
         -cdrom "$ISO_PATH"
         -hda "$DISK_FILE"
         -boot d  # Boot from CD-ROM first
@@ -111,9 +111,9 @@ run_qemu() {
         -device usb-tablet
         -device usb-kbd
         -vga virtio
-        -display gtk,gl=on  # GPU acceleration if available
-        -netdev user,id=net0
-        -device virtio-net-pci,netdev=net0
+        "-display gtk,gl=on"  # GPU acceleration if available
+        "-netdev user,id=net0"
+        "-device virtio-net-pci,netdev=net0"
         -soundhw hda  # Audio
     )
     

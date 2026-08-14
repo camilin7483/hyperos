@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2015
 #
 # package.sh — Build all HyperOS packages
 #
