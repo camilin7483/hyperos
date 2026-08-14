@@ -78,6 +78,6 @@ HyperOS now has a complete set of GUI applications built on PySide6 (Qt6) with C
   - packages.x86_64: rofi-lbonn-wayland → rofi (solo AUR), fsck eliminado (util-linux).
   - Lint + Test + Build ISO: SUCCESS en 8d31d4f (ISO ~1.9 GB, artefacto hyperos-iso).
 - Release: falló 403 (GITHUB_TOKEN read-only) → permissions: contents: write en
-  release.yml (dbcc79c); tag v1.0.0 movido a dbcc79c, re-disparado, pendiente de verificar.
-- PENDIENTE: rotar PAT expuesto (ghp_Mr67...f3u0), verificar release, limpiar
-  /tmp/opencode/hyperos-test (desechable).
+  release.yml (dbcc79c); tag v1.0.0 movido a dbcc79c, re-disparado. ✅ PUBLICADA:
+  https://github.com/camilin7483/hyperos/releases/tag/v1.0.0 (ISO 1912 MB + 14 .pkg.tar.zst).
+- PENDIENTE: rotar PAT expuesto (ghp_Mr67...f3u0), limpiar /tmp/opencode/hyperos-test.
