@@ -1,18 +1,28 @@
-# Maintainer: HyperOS Team
+# Maintainer: HyperOS Team <team@hyperos.org>
 pkgname=hyper-backup
 pkgver=0.1.0
 pkgrel=1
 pkgdesc="HyperOS backup manager"
 arch=('x86_64')
 url="https://hyperos.org"
-license=('GPL3')
-depends=('python' 'python-pyside6' 'hyperos-core' 'snapper')
-makedepends=('python-build' 'python-installer' 'python-wheel')
-source=()
+license=('GPL-3.0-or-later')
+depends=('python' 'python-pyside6' 'hyperos-core')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+source("hyper-backup-0.1.0.tar.gz")
 sha256sums=('SKIP')
-build() { cd "$startdir/src"; python -m build --wheel --no-isolation; }
+
+build() {
+    cd "${srcdir}/src"
+    python -m build --wheel --no-isolation
+}
+
 package() {
-    cd "$startdir/src"; python -m installer --destdir="$pkgdir" dist/*.whl
-    install -Dm644 "$startdir/data/hyper-backup.desktop" "$pkgdir/usr/share/applications/hyper-backup.desktop"
-    install -Dm644 "$startdir/assets/icons/hyper-backup.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/hyper-backup.svg"
+    cd "${srcdir}/src"
+    python -m installer --destdir="${pkgdir}" dist/*.whl
+
+    # Install desktop file
+    install -Dm644 "${srcdir}/../data/hyper-backup.desktop" "${pkgdir}/usr/share/applications/hyper-backup.desktop"
+
+    # Install icon
+    install -Dm644 "${srcdir}/../assets/icons/hyper-backup.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/hyper-backup.svg"
 }

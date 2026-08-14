@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=HyperOS Daemon
+Comment=HyperOS system daemon service
+Exec=/usr/bin/hyperos-daemon
+Icon=hyperos
+Terminal=false
+Categories=System;
+NoDisplay=true

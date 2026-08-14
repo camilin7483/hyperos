@@ -1,11 +1,66 @@
+```
+# Python
 __pycache__/
-*.py[cod]
-*.egg-info/
-dist/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+.venv.bak/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+*.tmp
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Build artifacts
 build/
+dist/
+*.egg-info/
+
+# Virtual environments
+venv/
+.venv/
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
+*.env.*
+
+# Coverage reports
+coverage/
+htmlcov/
+
+# MyPy
+.mypy_cache/
+
+# PyTest
 .pytest_cache/
-*.pkg.tar.*
-out/
-work/
-.vscode/
-.idea/
+
+# PKGBUILD related
+*.pkg.tar.xz
+*.src.tar.gz
+*.tar.gz
+*.tar.xz
+
+# Desktop files
+*.desktop~
+
+# D-Bus
+*.service~
+```

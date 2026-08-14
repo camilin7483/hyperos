@@ -1,0 +1,32 @@
+# HyperOS Daemon Configuration
+# Copy to /etc/hyperos/daemon.conf
+
+[daemon]
+# Enable D-Bus integration
+dbus_enabled = true
+
+# D-Bus service name
+dbus_service_name = org.hyperos.Daemon
+
+# Log level: DEBUG, INFO, WARNING, ERROR
+log_level = INFO
+
+# Log file path
+log_file = /var/log/hyperos/daemon.log
+
+[security]
+# Require polkit authorization for package operations
+require_auth_packages = true
+
+# Require polkit authorization for system operations
+require_auth_system = true
+
+# Allowed users (comma-separated, empty = all)
+allowed_users = 
+
+[hardware]
+# Hardware detection interval in seconds
+detection_interval = 30
+
+# Cache hardware info
+cache_enabled = true
