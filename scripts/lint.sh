@@ -17,7 +17,7 @@ echo "[lint] Running lint checks..."
 if command -v shellcheck &>/dev/null; then
     echo "[lint] Running shellcheck..."
     while IFS= read -r -d '' script; do
-        shellcheck -x -S warning "$script" || HAS_ERRORS=1
+        shellcheck -x "$script" || HAS_ERRORS=1
     done < <(find . -name "*.sh" -type f -print0)
 else
     echo "[lint] Warning: shellcheck not found. Skipping shell script validation."

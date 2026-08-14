@@ -22,13 +22,13 @@ for pkg_dir in "$PACKAGES_DIR"/hyper-*/; do
 
         cd "$pkg_dir"
 
-        if makepkg_output=$(makepkg -s 2>&1); then
+        makepkg_output=$(makepkg -s --noconfirm 2>&1) && {
             echo "[package] $pkg_name built successfully."
-        else
+        } || {
             echo "[package] ERROR: $pkg_name build failed."
             echo "$makepkg_output" | tail -5
             BUILD_FAILED=1
-        fi
+        }
 
         cd "$PROJECT_ROOT"
     fi

@@ -1,0 +1,140 @@
+/* Waybar Configuration for HyperOS */
+
+{
+    "layer": "top",
+    "position": "top",
+    "height": 28,
+    "spacing": 0,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "exclusive": true,
+    "passthrough": false,
+    
+    "gtk-layer-shell": true,
+    
+    "modules-left": [
+        "hyprland/workspaces",
+        "tray"
+    ],
+    
+    "modules-center": [
+        "clock"
+    ],
+    
+    "modules-right": [
+        "pulseaudio",
+        "network",
+        "bluetooth",
+        "battery",
+        "custom/hyperos"
+    ],
+    
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "4": "",
+            "5": "",
+            "6": "",
+            "7": "",
+            "8": "",
+            "9": "",
+            "10": "",
+            "active": "",
+            "default": ""
+        },
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "all-outputs": true,
+        "persistent-workspaces": {
+            "*": 10
+        }
+    },
+    
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10,
+        "show-passive-items": true
+    },
+    
+    "clock": {
+        "format": "  {:%H:%M | %a %d %b}",
+        "tooltip": true,
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format-alt": "  {:%I:%M %p}"
+    },
+    
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-bluetooth": " {icon}  {volume}%",
+        "format-bluetooth-muted": " ",
+        "format-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol",
+        "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "scroll-step": 5,
+        "tooltip": true,
+        "tooltip-format": "{desc} - {volume}%"
+    },
+    
+    "network": {
+        "format-wifi": "   {signalStrength}%",
+        "format-ethernet": "  Connected",
+        "format-linked": "  No IP",
+        "format-disconnected": " Disconnected",
+        "tooltip": true,
+        "tooltip-format-wifi": "WiFi: {essid}\nSignal: {signalStrength}%\nFrequency: {frequency}MHz\nInterface: {ifname}",
+        "tooltip-format-ethernet": "Ethernet: {ifname}\nIP: {ipaddr}/{cidr}",
+        "on-click": "alacritty -e nmtui",
+        "on-click-right": "nm-connection-editor"
+    },
+    
+    "bluetooth": {
+        "format": " {status}",
+        "format-disabled": "",
+        "format-off": " Off",
+        "format-connected": " {device_enumerate}",
+        "tooltip": true,
+        "tooltip-format": "Bluetooth: {status}",
+        "tooltip-format-connected": "Bluetooth: {status}\n{device_enumerate}",
+        "tooltip-format-device-connected": "{alias} ({battery_percentage}%)",
+        "tooltip-format-device-disconnected": "{alias}",
+        "on-click": "blueman-manager",
+        "max-length": 30
+    },
+    
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "  {capacity}%",
+        "format-plugged": "  {capacity}%",
+        "format-full": "  Full",
+        "format-icons": [" ", " ", " ", " ", " "],
+        "tooltip": true,
+        "tooltip-format": "{timeTo} - {power}W",
+        "interval": 30
+    },
+    
+    "custom/hyperos": {
+        "format": " HyperOS",
+        "tooltip": false,
+        "on-click": "hyper-center",
+        "on-click-right": "hyper-settings"
+    }
+}

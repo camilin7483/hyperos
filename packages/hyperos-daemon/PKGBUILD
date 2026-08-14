@@ -1,0 +1,25 @@
+# Maintainer: HyperOS Team <team@hyperos.org>
+pkgname=hyperos-daemon
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="HyperOS central system daemon for secure system operations"
+arch=('x86_64')
+url="https://hyperos.org"
+license=('GPL-3.0-or-later')
+depends=('python' 'python-pyside6' 'hyperos-core')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+source("hyperos-daemon-0.1.0.tar.gz")
+sha256sums=('SKIP')
+
+build() {
+    cd "${srcdir}/src"
+    python -m build --wheel --no-isolation
+}
+
+package() {
+    cd "${srcdir}/src"
+    python -m installer --destdir="${pkgdir}" dist/*.whl
+
+    # Install desktop file
+    install -Dm644 "${srcdir}/../data/hyperos-daemon.desktop" "${pkgdir}/usr/share/applications/hyperos-daemon.desktop"
+}

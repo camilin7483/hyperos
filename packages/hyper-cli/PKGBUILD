@@ -1,15 +1,22 @@
-# Maintainer: HyperOS Team
+# Maintainer: HyperOS Team <team@hyperos.org>
 pkgname=hyper-cli
 pkgver=0.1.0
 pkgrel=1
 pkgdesc="HyperOS Command-Line Tools"
 arch=('x86_64')
 url="https://hyperos.org"
-license=('GPL3')
-depends=('python')
-source=()
+license=('GPL-3.0-or-later')
+depends=('python' 'hyperos-core')
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+source("hyper-cli-0.1.0.tar.gz")
 sha256sums=('SKIP')
 
+build() {
+    cd "${srcdir}/src"
+    python -m build --wheel --no-isolation
+}
+
 package() {
-    install -Dm755 "$startdir/src/main.py" "$pkgdir/usr/bin/$pkgname"
+    cd "${srcdir}/src"
+    python -m installer --destdir="${pkgdir}" dist/*.whl
 }

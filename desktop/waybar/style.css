@@ -1,0 +1,144 @@
+/* Waybar Style for HyperOS */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrains Mono Nerd Font", "Noto Sans", monospace;
+    font-size: 14px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(20, 20, 30, 0.9);
+    color: #cdd6f4;
+    border-bottom: 1px solid rgba(126, 170, 228, 0.3);
+}
+
+/* Workspace buttons */
+#workspaces {
+    background: transparent;
+    margin: 2px 5px;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    margin: 2px 3px;
+    background: rgba(49, 50, 68, 0.5);
+    color: #cdd6f4;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+#workspaces button.active {
+    background: rgba(126, 170, 228, 0.8);
+    color: #1e1e2e;
+    font-weight: bold;
+}
+
+#workspaces button:hover {
+    background: rgba(126, 170, 228, 0.5);
+    color: #1e1e2e;
+}
+
+/* Module styles */
+#clock,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+#custom-hyperos,
+#tray {
+    padding: 0 10px;
+    margin: 2px 3px;
+    background: rgba(49, 50, 68, 0.4);
+    border-radius: 4px;
+}
+
+#clock {
+    background: rgba(126, 170, 228, 0.3);
+    font-weight: bold;
+}
+
+#pulseaudio {
+    color: #f38ba8;
+}
+
+#pulseaudio.muted {
+    background: rgba(243, 139, 168, 0.2);
+    color: #a6adc8;
+}
+
+#network {
+    color: #a6e3a1;
+}
+
+#network.disconnected {
+    color: #f38ba8;
+}
+
+#bluetooth {
+    color: #89b4fa;
+}
+
+#bluetooth.off {
+    color: #6c7086;
+}
+
+#battery {
+    color: #a6e3a1;
+}
+
+#battery.warning {
+    background: rgba(243, 139, 168, 0.2);
+    color: #f38ba8;
+}
+
+#battery.critical {
+    background: rgba(243, 139, 168, 0.4);
+    color: #f38ba8;
+    animation: blink 1s linear infinite;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #89b4fa;
+}
+
+#custom-hyperos {
+    background: rgba(126, 170, 228, 0.6);
+    color: #1e1e2e;
+    font-weight: bold;
+    padding: 0 15px;
+}
+
+#tray {
+    margin-right: 10px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+/* Tooltip styling */
+tooltip {
+    background: rgba(20, 20, 30, 0.95);
+    border: 1px solid rgba(126, 170, 228, 0.3);
+    border-radius: 6px;
+    padding: 8px;
+}
+
+tooltip label {
+    color: #cdd6f4;
+}
+
+/* Animations */
+@keyframes blink {
+    to {
+        background-color: rgba(243, 139, 168, 0.6);
+        color: #1e1e2e;
+    }
+}

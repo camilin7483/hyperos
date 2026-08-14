@@ -1,31 +1,28 @@
-# Maintainer: HyperOS Team
+# Maintainer: HyperOS Team <team@hyperos.org>
 pkgname=hyper-welcome
 pkgver=0.1.0
 pkgrel=1
 pkgdesc="HyperOS first-boot welcome screen"
 arch=('x86_64')
 url="https://hyperos.org"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('python' 'python-pyside6')
-makedepends=('python-build' 'python-installer' 'python-wheel')
-source=()
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+source("hyper-welcome-0.1.0.tar.gz")
 sha256sums=('SKIP')
 
 build() {
-    cd "$startdir/src"
+    cd "${srcdir}/src"
     python -m build --wheel --no-isolation
 }
 
 package() {
-    cd "$startdir/src"
-    python -m installer --destdir="$pkgdir" dist/*.whl
+    cd "${srcdir}/src"
+    python -m installer --destdir="${pkgdir}" dist/*.whl
 
-    install -Dm644 "$startdir/data/hyper-welcome.desktop" \
-        "$pkgdir/usr/share/applications/hyper-welcome.desktop"
+    # Install desktop file
+    install -Dm644 "${srcdir}/../data/hyper-welcome.desktop" "${pkgdir}/usr/share/applications/hyper-welcome.desktop"
 
-    install -Dm644 "$startdir/data/hyperwelcome-user.service" \
-        "$pkgdir/usr/lib/systemd/user/hyperwelcome.service"
-
-    install -Dm644 "$startdir/assets/icons/hyper-welcome.svg" \
-        "$pkgdir/usr/share/icons/hicolor/scalable/apps/hyper-welcome.svg"
+    # Install icon
+    install -Dm644 "${srcdir}/../assets/icons/hyper-welcome.svg" "${pkgdir}/usr/share/icons/hicolor/scalable/apps/hyper-welcome.svg"
 }

@@ -1,22 +1,29 @@
-# Maintainer: HyperOS Team
+# Maintainer: HyperOS Team <team@hyperos.org>
 pkgname=hyperos-core
 pkgver=0.1.0
 pkgrel=1
 pkgdesc="HyperOS shared core library"
 arch=('x86_64')
 url="https://hyperos.org"
-license=('GPL3')
+license=('GPL-3.0-or-later')
 depends=('python' 'python-pyside6')
-makedepends=('python-build' 'python-installer' 'python-wheel')
-source=()
+makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
+source=("hyperos-core-${pkgver}.tar.gz")
 sha256sums=('SKIP')
 
+prepare() {
+    cp -a "${srcdir}/." "${srcdir}/hyperos-core-${pkgver}"
+}
+
 build() {
-    cd "$startdir/src"
+    cd "${srcdir}/hyperos-core-${pkgver}"
     python -m build --wheel --no-isolation
 }
 
 package() {
-    cd "$startdir/src"
-    python -m installer --destdir="$pkgdir" dist/*.whl
+    cd "${srcdir}/hyperos-core-${pkgver}"
+    python -m installer --destdir="${pkgdir}" dist/*.whl
+    
+    # Instalar metadatos adicionales
+    install -Dm644 pyproject.toml "${pkgdir}/usr/share/hyperos/core/pyproject.toml"
 }

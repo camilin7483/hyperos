@@ -1,13 +1,1 @@
-__pycache__/
-*.py[cod]
-*.egg-info/
-dist/
-build/
-.pytest_cache/
-*.pkg.tar.*
-out/
-work/
-pkg/
-local-repo/
-.vscode/
-.idea/
+(docs/INSTALLATION_GUIDE.md, docs/assets/README.md, scripts/upload-to-github.sh, docs/README.md)

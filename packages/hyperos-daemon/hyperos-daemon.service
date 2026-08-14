@@ -1,0 +1,37 @@
+[Unit]
+Description=HyperOS System Daemon
+Documentation=https://hyperos.org/docs
+After=dbus.service network.target
+Wants=dbus.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/hyperos-daemon --config /etc/hyperos/daemon.conf
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+
+# Security hardening
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=read-only
+PrivateTmp=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+# Allow write access to log directory
+ReadWritePaths=/var/log/hyperos
+ReadOnlyPaths=/etc/hyperos
+
+# D-Bus access
+BusPolicy=org.hyperos.Daemon talk
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=hyperos-daemon
+
+[Install]
+WantedBy=multi-user.target

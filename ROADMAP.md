@@ -1,8 +1,8 @@
 # HyperOS Roadmap
 
-## Current Status — v0.5
+## Current Status
 
-HyperOS has a bootable ISO with all 10 GUI applications. The ISO boots successfully (ISOLINUX → kernel → userspace) and is ready for testing on real hardware. GitHub CI/CD pipeline configured.
+HyperOS is in phase v0.4. All core applications implemented. Next: bootable ISO and release.
 
 ## Milestones
 
@@ -12,8 +12,8 @@ HyperOS has a bootable ISO with all 10 GUI applications. The ISO boots successfu
 - [x] ArchISO base
 
 ### v0.2 — Bootable ISO
-- [x] Bootable ISO generation
-- [x] Branding placeholders
+- [ ] Bootable ISO generation
+- [ ] Branding placeholders
 - [x] Basic system configuration
 - [x] Plymouth boot splash
 
@@ -37,35 +37,17 @@ HyperOS has a bootable ISO with all 10 GUI applications. The ISO boots successfu
 - [x] Hyper Assistant (offline assistant)
 - [x] Hyper Installer (graphical installer)
 
-### v0.5 — Stable ISO (2026-07-25)
-- [x] Bootable ISO build
-- [x] Live environment validation (QEMU: kernel + userspace OK)
-- [x] SDDM configuration (DisplayServer=x11, auto-login hyperos → Hyprland)
-- [x] Serial console debugging (SERIAL 0 115200 in syslinux)
-- [x] ISO build fixes (stale mounts, /etc/resolv.conf, /dev/null)
-- [x] Local package repository (local-repo/)
-- [x] GitHub CI/CD pipeline
-- [x] Bug fixing and polish
-
-### v0.6 — Testing & Polish
-
-- [ ] Test ISO on real hardware (USB boot, SDDM + Hyprland + all apps)
-- [ ] Fix initramfs microcode embedding (`/dev/stdin` missing in mkinitcpio)
-- [x] ~~Add screenshots to README~~ (done v0.5)
-- [x] ~~CI: build packages in container~~ (done v0.5)
-- [ ] Unit test coverage for all packages
-- [ ] Performance: move all subprocess calls to QThread workers
-- [ ] Hyper Assistant LLM integration (Ollama)
-- [ ] Hyper Installer real disk partitioning (archinstall integration)
-- [ ] Security audit pass
-- [ ] hyper-cli / hyper-gaming / hyper-kernel implementation
+### v0.5 — Stable ISO
+- [ ] Bootable ISO build
+- [ ] Live environment validation
+- [ ] Installation validation
+- [ ] Package repository setup
+- [ ] Bug fixing and polish
 
 ### v1.0 — Stable Release
-
 - [ ] All core features complete
-- [ ] Stable ISO tested on multiple hardware configurations
-- [ ] Package repository (public, signed)
-- [ ] Installation guide and user documentation
+- [ ] Stable ISO
+- [ ] Package repository
 - [ ] Community contributions
 
 ## Future Possibilities
@@ -76,7 +58,3 @@ HyperOS has a bootable ISO with all 10 GUI applications. The ISO boots successfu
 - XFCE edition
 - GNOME edition
 - ARM architecture support
-- Flatpak/AppImage support
-- Secure Boot support
-- Full disk encryption installer
-- OTA updates (offline and online)

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=HyperOS Welcome
+Comment=Show welcome screen on first login
+Exec=hyper-welcome
+Icon=hyperos-welcome
+Terminal=false
+Categories=Utility;
+OnlyShowIn=Hyprland;Wayland;
+X-GNOME-Autostart-enabled=true
+Hidden=false
