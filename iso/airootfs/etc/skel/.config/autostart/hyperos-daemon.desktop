@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=HyperOS Daemon
+Comment=Start HyperOS system daemon
+Exec=/usr/bin/hyperos-daemon --user
+Icon=hyperos-daemon
+Terminal=false
+Categories=System;
+OnlyShowIn=Hyprland;Wayland;
+X-GNOME-Autostart-enabled=true
+Hidden=false
