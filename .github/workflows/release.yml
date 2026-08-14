@@ -53,6 +53,7 @@ jobs:
 
       - name: Build ISO
         run: |
+          mkdir -p out/work
           mkarchiso -v -w out/work -o out archiso
 
       - name: Create release
