@@ -6,13 +6,15 @@ pkgdesc="HyperOS shared core library"
 arch=('x86_64')
 url="https://hyperos.org"
 license=('GPL-3.0-or-later')
-depends=('python' 'python-pyside6')
+depends=('python' 'pyside6')
 makedepends=('python-build' 'python-installer' 'python-wheel' 'python-setuptools')
 source=("hyperos-core-${pkgver}.tar.gz")
 sha256sums=('SKIP')
 
 prepare() {
-    cp -a "${srcdir}/." "${srcdir}/hyperos-core-${pkgver}"
+    rm -rf "${srcdir}/hyperos-core-${pkgver}"
+    mv "${srcdir}/hyperos_core" "${srcdir}/hyperos-core-${pkgver}"
+    cp "${srcdir}/pyproject.toml" "${srcdir}/README.md" "${srcdir}/hyperos-core-${pkgver}/" 2>/dev/null || true
 }
 
 build() {

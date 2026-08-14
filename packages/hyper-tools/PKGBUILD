@@ -8,7 +8,7 @@ url="https://hyperos.org"
 license=('GPL-3.0-or-later')
 depends=('bash' 'coreutils')
 source=()
-sha256sums=('SKIP')
+sha256sums=()
 
 package() {
     # Placeholder for future bash scripts

@@ -12,20 +12,48 @@ jobs:
       image: archlinux:latest
       options: --privileged
     steps:
+      - uses: actions/checkout@v4
+
       - name: Install dependencies
         run: |
           pacman -Syu --noconfirm
-          pacman -S --noconfirm base-devel archiso git
+          pacman -S --noconfirm base-devel archiso git python-build python-installer python-wheel python-setuptools pyside6
 
-      - uses: actions/checkout@v4
+      - name: Create build user
+        run: |
+          useradd -m builduser
+          chown -R builduser:builduser .
+
+      - name: Build hyperos-core
+        run: |
+          runuser -u builduser -- bash -c 'cd core && makepkg -s --noconfirm'
+
+      - name: Install hyperos-core
+        run: |
+          pacman -U --noconfirm core/*.pkg.tar.zst
+
+      - name: Build all packages
+        run: |
+          runuser -u builduser -- ./scripts/package.sh
+
+      - name: Set up local repository
+        run: |
+          mkdir -p local-repo
+          find core packages -name '*.pkg.tar.zst' -exec cp {} local-repo/ \;
+          repo-add local-repo/hyperos-local.db.tar.gz local-repo/*.pkg.tar.zst
+
+      - name: Configure profile pacman.conf for local repo
+        run: |
+          cat >> archiso/pacman.conf << EOF
+
+          [hyperos-local]
+          Server = file://$GITHUB_WORKSPACE/local-repo
+          SigLevel = Never
+          EOF
 
       - name: Build ISO
         run: |
-          ./scripts/build-iso.sh
-
-      - name: Build packages
-        run: |
-          ./scripts/package.sh
+          mkarchiso -v -w out/work -o out archiso
 
       - name: Create release
         uses: softprops/action-gh-release@v2

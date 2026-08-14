@@ -24,7 +24,7 @@ hyprpaper
 hyprlock
 hypridle
 waybar
-rofi-lbonn-wayland
+rofi
 wofi
 kitty
 dolphin
@@ -55,7 +55,6 @@ exfat-utils
 dosfstools
 btrfs-progs
 e2fsprogs
-fsck
 util-linux
 
 # Display manager
@@ -67,7 +66,7 @@ xz
 
 # Python / Qt
 python
-python-pyside6
+pyside6
 
 # Development (live)
 git

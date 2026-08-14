@@ -21,7 +21,7 @@ update_pkgbuild() {
     pkgdesc=$(grep "^pkgdesc=" "$pkgbuild" | cut -d'"' -f2)
     depends_line=$(grep "^depends=" "$pkgbuild")
     has_python=$(echo "$depends_line" | grep -c "'python'" || true)
-    has_pyside6=$(echo "$depends_line" | grep -c "'python-pyside6'" || true)
+    has_pyside6=$(echo "$depends_line" | grep -c "'pyside6'" || true)
     has_hyperos_core=$(echo "$depends_line" | grep -c "'hyperos-core'" || true)
     
     # Verificar si es paquete Python con src/
@@ -53,7 +53,7 @@ EOF
     # Agregar dependencias
     if [[ "$pkg_type" == "python" ]] || [[ "$pkg_type" == "python-simple" ]]; then
         if [[ "$has_pyside6" -gt 0 ]]; then
-            echo "depends=('python' 'python-pyside6'$( [[ "$has_hyperos_core" -gt 0 ]] && echo " 'hyperos-core'" ))" >> "$pkgbuild"
+            echo "depends=('python' 'pyside6'$( [[ "$has_hyperos_core" -gt 0 ]] && echo " 'hyperos-core'" ))" >> "$pkgbuild"
         else
             echo "depends=('python'$( [[ "$has_hyperos_core" -gt 0 ]] && echo " 'hyperos-core'" ))" >> "$pkgbuild"
         fi
