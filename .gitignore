@@ -1,3 +1,1 @@
-(docs/BETA_READINESS.md, docs/HARDWARE_COMPATIBILITY.md, docs/PERFORMANCE.md, docs/V0.5_VERIFICATION.md, scripts/hyper-diagnose.sh, scripts/hyper-stress-test.sh - these are all source/config files, no build artifacts, dependencies, or temp files present)
-
-(empty)
+(docs/INSTALLATION_GUIDE.md, docs/assets/README.md, scripts/upload-to-github.sh, docs/README.md)
