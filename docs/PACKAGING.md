@@ -252,25 +252,35 @@ which hyper-center
 ls /usr/share/applications/hyper-center.desktop
 ```
 
-## Estado Actual (v0.5)
+## Estado Actual (v1.0.0)
+
+Todos los paquetes se construyen reales en CI (workflow build-iso.yml, usuario `builduser`, `makepkg` + `repo-add`) y se publican en cada release:
 
 | Paquete | PKGBUILD | Source | Buildable | Notas |
 |---------|----------|--------|-----------|-------|
-| hyperos-core | ✅ | ✅ | ✅ | Librería base |
-| hyperos-daemon | ✅ | ✅ | ✅ | Nuevo en v0.5 |
-| hyper-center | ✅ | ✅ | ⚠️ | Simulado sin makepkg |
-| hyper-settings | ✅ | ✅ | ⚠️ | Simulado sin makepkg |
-| hyper-store | ✅ | ✅ | ⚠️ | Simulado sin makepkg |
-| hyper-update | ✅ | ✅ | ⚠️ | Simulado sin makepkg |
-| hyper-drivers | ✅ | ✅ | ⚠️ | Simulado sin makepkg |
-| hyper-backup | ✅ | ✅ | ⚠️ | Simulado sin makepkg |
-| hyper-assistant | ✅ | ✅ | ⚠️ | Simulado sin makepkg |
-| hyper-welcome | ✅ | ✅ | ⚠️ | Simulado sin makepkg |
-| hyper-installer | ✅ | ✅ | ⚠️ | Simulado sin makepkg |
-| hyper-gaming | ✅ | ✅ | ⚠️ | Simulado sin makepkg |
-| hyper-tools | ⚠️ | ❌ | ❌ | Sin directorio src |
-| hyper-kernel | ✅ | ✅ | ⚠️ | Placeholder |
-| hyper-cli | ✅ | ✅ | ⚠️ | Simulado sin makepkg |
+| hyperos-core | ✅ | ✅ | ✅ | Librería base (PySide6) |
+| hyperos-daemon | ✅ | ✅ | ✅ | Daemon del sistema |
+| hyper-center | ✅ | ✅ | ✅ | |
+| hyper-settings | ✅ | ✅ | ✅ | |
+| hyper-store | ✅ | ✅ | ✅ | |
+| hyper-update | ✅ | ✅ | ✅ | |
+| hyper-drivers | ✅ | ✅ | ✅ | |
+| hyper-backup | ✅ | ✅ | ✅ | |
+| hyper-assistant | ✅ | ✅ | ✅ | |
+| hyper-welcome | ✅ | ✅ | ✅ | |
+| hyper-installer | ✅ | ✅ | ✅ | |
+| hyper-gaming | ✅ | ✅ | ✅ | main.py en /usr/bin |
+| hyper-tools | ✅ | ✅ | ✅ | source=() + sha256sums=() |
+| hyper-kernel | ✅ | ✅ | ✅ | main.py en /usr/bin |
+| hyper-cli | ✅ | ✅ | ✅ | main.py en /usr/bin |
+
+### Errores corregidos en v1.0.0 (CI-validado)
+
+- `python-pyside6` → **`pyside6`** (nombre real en repos oficiales; `python-pyside6` no existe)
+- `source("...")` → `source=("...")` (sintaxis válida de PKGBUILD)
+- core `prepare()`: `cp -r` sobre sí mismo fallaba → `mv` idempotente
+- hyper-tools: `sha256sums=('SKIP')` con `source=()` rompía la integridad → `sha256sums=()`
+- rofi-lbonn-wayland (AUR) → `rofi` en `archiso/packages.x86_64`
 
 **Leyenda:**
 - ✅ Completo

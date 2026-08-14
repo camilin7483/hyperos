@@ -6,64 +6,81 @@ HyperOS uses `archiso` to build a bootable ISO image containing a complete Live 
 
 ## Directory Structure
 
+Perfil usado por CI y por `scripts/build-iso.sh`:
+
 ```
-iso/
+archiso/
 ├── profiledef.sh              # Main archiso profile definition
-├── pacman.conf                # Custom pacman configuration with HyperOS repo
-├── build-iso.sh              # Build script for ISO creation
-├── airootfs/                 # Root filesystem customization
+├── pacman.conf                # Custom pacman configuration (CI inyecta [hyperos-local])
+├── packages.x86_64            # Lista de paquetes del Live environment
+├── airootfs/                  # Root filesystem customization
 │   ├── root/
 │   │   └── .automated_script.sh  # First-boot automation
-│   ├── etc/
-│   │   ├── sddm.conf         # Display manager configuration
-│   │   └── skel/             # User template directory
-│   │       └── .config/
-│   │           ├── hypr/     # Hyprland configuration
-│   │           ├── waybar/   # Waybar configuration
-│   │           └── autostart/ # Autostart applications
-│   └── usr/
-│       └── share/
-│           └── wayland-sessions/ # Wayland session definitions
-└── repo/
-    └── x86_64/               # Local package repository
+│   └── etc/
+│       ├── sddm.conf.d/       # Display manager configuration
+│       └── skel/              # User template directory
+│           └── .config/
+│               ├── hypr/      # Hyprland configuration
+│               ├── waybar/    # Waybar configuration
+│               └── autostart/ # Autostart applications
 ```
+
+`iso/` es el perfil heredado (v0.5), con su propio `iso/build-iso.sh`; el perfil oficial es `archiso/`.
 
 ## Building the ISO
 
 ### Prerequisites
 
 ```bash
-sudo pacman -S archiso squashfs-tools libisoburn qemu-base
+sudo pacman -S archiso
 ```
 
-### Build Process
+### Build Process (local)
 
-1. **Build all packages first:**
+1. **Build all packages and create the local repository:**
    ```bash
-   ./build.sh packages
+   ./build.sh all
+   # Crea build/repository/x86_64/*.pkg.tar.zst
    ```
 
-2. **Build the ISO:**
+2. **Añadir el repo local al pacman.conf del perfil** (mkarchiso usa el pacman.conf del perfil, no el del host):
+   ```
+   # archiso/pacman.conf
+   [hyperos-local]
+   SigLevel = Never
+   Server = file:///abs/path/hyperos/build/repository/x86_64
+   ```
+
+3. **Build the ISO:**
    ```bash
-   ./iso/build-iso.sh
+   ./scripts/build-iso.sh
    ```
 
-3. **Output location:**
+4. **Output location:**
    ```
-   build/hyperos-0.5.0-x86_64.iso
-   build/hyperos-0.5.0-x86_64.iso.sha256
+   out/hyperos-<fecha>-x86_64.iso      # ej: out/hyperos-2026.08.14-x86_64.iso
    ```
+
+### Build en CI (GitHub Actions)
+
+El flujo oficial es el workflow [build-iso.yml](../.github/workflows/build-iso.yml), que corre en cada push a `main`:
+
+1. Instala deps (`base-devel`, `python-build/installer/wheel/setuptools`, `pyside6`, `archiso`)
+2. Crea el usuario `builduser` (makepkg no puede correr como root)
+3. `makepkg` de `core/` → `pacman -U` del paquete en el contenedor
+4. `scripts/package.sh` como builduser → 14 paquetes `packages/hyper-*`
+5. `repo-add` en `local-repo/x86_64` + inyección de `[hyperos-local]` en `archiso/pacman.conf`
+6. `mkdir -p out/work` + `mkarchiso`
+7. Sube el artefacto `hyperos-iso` (~1.9 GB)
+
+Al taggear (`v*`), [release.yml](../.github/workflows/release.yml) publica la ISO y los 14 `.pkg.tar.zst` en GitHub Releases. La ISO de la última release: https://github.com/camilin7483/hyperos/releases
 
 ### What the Build Script Does
 
-1. Checks dependencies (archiso, mkarchiso, sqfs, xorriso)
-2. Cleans previous builds
-3. Builds HyperOS packages if needed
-4. Copies packages to local repository in ISO
-5. Creates package database (hyperos.db)
-6. Customizes AIROOTFS with configurations
-7. Runs mkarchiso to build the ISO
-8. Generates SHA256 checksum
+1. Checks dependencies (archiso, mkarchiso)
+2. Creates `out/work` and `out`
+3. Runs mkarchiso against the `archiso/` profile
+4. Produces `out/hyperos-<fecha>-x86_64.iso`
 
 ## Testing the ISO
 
@@ -87,9 +104,9 @@ qemu-system-x86_64 \
   -enable-kvm \
   -m 4G \
   -smp 2 \
-  -drive if=pflash,format=raw,readonly=on,file=/usr/share/ovmf/x64/OVMF_CODE.fd \
-  -drive if=pflash,format=raw,file=/tmp/ovmf-vars.fd \
-  -cdrom build/hyperos-0.5.0-x86_64.iso \
+  -drive if=pflash,format=raw,readonly=on,file=/usr/share/ovmf/x64/OVMF_CODE.4m.fd \
+  -drive if=pflash,format=raw,file=/tmp/ovmf-vars.4m.fd \
+  -cdrom out/hyperos-2026.08.14-x86_64.iso \
   -boot d \
   -usb -device usb-tablet -device usb-kbd \
   -vga virtio \
@@ -152,10 +169,10 @@ qemu-system-x86_64 \
 
 ### Adding Packages
 
-Edit `iso/profiledef.sh` and add packages to the `packages_x86_64` array:
+Edit `archiso/packages.x86_64` and add the package name (los paquetes `hyper-*` requieren que el repo local `[hyperos-local]` esté configurado en `archiso/pacman.conf`, como hace CI):
 
 ```bash
-packages_x86_64=(
+packages=(
     # ... existing packages
     your-package
 )
@@ -163,14 +180,14 @@ packages_x86_64=(
 
 ### Changing Desktop Configuration
 
-Modify files in `iso/airootfs/etc/skel/.config/`:
+Modify files in `archiso/airootfs/etc/skel/.config/`:
 - `hypr/hyprland.conf` - Compositor settings
 - `waybar/config.jsonc` - Bar layout
 - `waybar/style.css` - Bar theme
 
 ### Modifying First-Boot Script
 
-Edit `iso/airootfs/root/.automated_script.sh` to change:
+Edit `archiso/airootfs/root/.automated_script.sh` to change:
 - Network setup
 - Service enabling
 - Welcome message
@@ -182,7 +199,7 @@ Edit `iso/airootfs/root/.automated_script.sh` to change:
 
 **Missing dependencies:**
 ```bash
-sudo pacman -S archiso squashfs-tools libisobturn
+sudo pacman -S archiso
 ```
 
 **Package build errors:**
@@ -190,6 +207,13 @@ sudo pacman -S archiso squashfs-tools libisobturn
 ./build.sh packages 2>&1 | tee build.log
 # Review build.log for specific errors
 ```
+
+**`target not found: hyper-*` durante el pacstrap:**
+- Falta el repo local en `archiso/pacman.conf`: añade `[hyperos-local]` con `Server = file:///.../build/repository/x86_64` (ver "Build Process").
+- En CI esto lo inyecta el workflow automáticamente.
+
+**`realpath: out/work: No such file or directory`:**
+- `mkdir -p out/work` antes de `mkarchiso` (ya lo hace `scripts/build-iso.sh` y los workflows).
 
 ### VM Boot Issues
 
@@ -247,10 +271,10 @@ Hyprland
 
 ## Release Checklist
 
-Before releasing an ISO:
+El pipeline CI valida automáticamente (workflows `lint.yml`, `test.yml`, `build-iso.yml`, `release.yml`):
 
-- [ ] All packages build successfully
-- [ ] ISO builds without errors
+- [x] All packages build successfully (CI)
+- [x] ISO builds without errors (CI)
 - [ ] ISO boots in QEMU
 - [ ] Live environment loads completely
 - [ ] Network connectivity works
@@ -258,9 +282,7 @@ Before releasing an ISO:
 - [ ] Hyprland starts automatically
 - [ ] All HyperOS apps launch
 - [ ] Installer can be launched
-- [ ] SHA256 checksum generated
-- [ ] Release notes updated
-- [ ] Version number updated
+- [x] Release published with ISO + packages (CI, tag `v*`)
 
 ## Security Considerations
 
