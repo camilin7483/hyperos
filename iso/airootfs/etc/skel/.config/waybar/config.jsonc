@@ -1,0 +1,183 @@
+{
+  "layer-top": {
+    "left": "group",
+    "right": [
+      "tray",
+      "group"
+    ],
+    "center": "clock"
+  },
+  "layer-bottom": [
+    "workspaces"
+  ],
+  "layer-empty": true,
+  "exclusive": true,
+  "passthrough": false,
+  "spacing": 8,
+  "height": 36,
+  "modules-left": [
+    "hyprland/workspaces",
+    "custom/launcher"
+  ],
+  "modules-center": [
+    "clock/calendar"
+  ],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "bluetooth",
+    "battery",
+    "systemd-failed-units",
+    "tray",
+    "clock"
+  ],
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "1": "󰣇",
+      "2": "󰝰",
+      "3": "󰏹",
+      "4": "󱂬",
+      "5": "󰎁",
+      "6": "󰓍",
+      "7": "󰊴",
+      "8": "󰒄",
+      "9": "󰚩",
+      "10": "󰑴",
+      "active": "",
+      "default": ""
+    },
+    "on-click": "activate",
+    "all-outputs": false,
+    "persistent-workspaces": {
+      "*": 5
+    }
+  },
+  "custom/launcher": {
+    "format": "",
+    "tooltip": false,
+    "on-click": "wofi --show drun",
+    "on-click-right": "wofi --show run"
+  },
+  "clock": {
+    "interval": 1,
+    "format": "{:%H:%M}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weekdays": "<span color='#f9e2af'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  "clock#calendar": {
+    "format": "{:%a, %d %b %H:%M}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weekdays": "<span color='#f9e2af'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",
+      "on-scroll-up": "shift_up",
+      "on-scroll-down": "shift_down"
+    }
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-bluetooth-muted": " {icon}",
+    "format-muted": " {format_source}",
+    "format_source": "{source_icon} {source_volume}%",
+    "on-click": "pavucontrol",
+    "scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
+    "scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
+    "icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    }
+  },
+  "network": {
+    "format-wifi": " {signalStrength}%",
+    "format-ethernet": "󰈀 Connected",
+    "format-disconnected": "󰖪 Disconnected",
+    "tooltip-format": "Interface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}\nFrequency: {frequency}MHz\nSignal Strength: {signalStrength}%",
+    "tooltip-format-wifi": "SSID: {essid}\nFrequency: {frequency}MHz\nSignal Strength: {signalStrength}%\nChannel: {channelPosition}",
+    "tooltip-format-ethernet": "Interface: {ifname}\nIP: {ipaddr}/{cidr}\nGateway: {gwaddr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "nm-connection-editor",
+    "on-click-right": "nmcli radio wifi off"
+  },
+  "bluetooth": {
+    "format": " {status}",
+    "format-disabled": "",
+    "format-off": "",
+    "format-connected": " {num_connections}",
+    "tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
+    "tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected:\n\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
+    "on-click": "blueman-manager",
+    "on-click-right": "blueman-applet"
+  },
+  "battery": {
+    "states": {
+      "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-charging": " {capacity}%",
+    "format-plugged": " {capacity}%",
+    "format-alt": "{icon} {time}",
+    "format-full": " Full",
+    "format-icons": ["", "", "", "", ""],
+    "interval": 30
+  },
+  "systemd-failed-units": {
+    "format": "× {failed}",
+    "tooltip": true,
+    "tooltip-format": "{reason}"
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 10
+  },
+  "group/tray": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 300,
+      "transition-type": "slide_down",
+      "click-to-open": true,
+      "close-on-click": true
+    },
+    "modules": [
+      "bluetooth",
+      "network",
+      "pulseaudio"
+    ]
+  }
+}

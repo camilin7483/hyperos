@@ -1,0 +1,6 @@
+# HyperOS Local Repository Configuration
+# Agregar esto a /etc/pacman.conf
+
+[hyperos]
+SigLevel = Optional TrustAll
+Server = file:///workspace/build/repository
