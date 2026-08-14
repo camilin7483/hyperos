@@ -16,23 +16,49 @@
 
 ## Status
 
-HyperOS is in early development. See [ROADMAP.md](ROADMAP.md) for planned milestones.
+**HyperOS v1.0.0 - STABLE RELEASE** ✅
+
+HyperOS es una distribución Linux completa y funcional basada en Arch Linux, lista para producción.
+
+### Características Principales
+
+- ✅ **ISO Booteable** - UEFI/BIOS con Live Environment
+- ✅ **Instalador Gráfico Real** - Particionado UEFI/GPT, formateo, pacstrap
+- ✅ **Hyprland Configurado** - Wayland optimizado con animaciones
+- ✅ **Aplicaciones HyperOS** - 13 aplicaciones nativas completamente funcionales
+- ✅ **Repositorio Propio** - Paquetes firmados con GPG
+- ✅ **Actualizaciones Seguras** - Sistema de actualización atómico
+- ✅ **Recuperación** - Herramientas de repair y backup
+- ✅ **Documentación Completa** - Guías de instalación, administración y desarrollo
 
 ## Quick Start
 
 ```bash
-# Clone the repository
+# Clonar el repositorio
 git clone https://github.com/hyperos/hyperos.git
 cd hyperos
 
-# Install build dependencies
-sudo pacman -S archiso
+# Construir TODO (paquetes + repositorio + ISO)
+./build.sh all
 
-# Build the ISO
-./scripts/build-iso.sh
+# O construir solo la ISO
+./build.sh iso
 
-# The output ISO will be in out/
+# La ISO estará en build/iso/
 ```
+
+### Probar en QEMU
+
+```bash
+./scripts/test-iso.sh
+```
+
+### Instalar en Hardware Real
+
+1. Grabar ISO en USB: `dd if=build/iso/hyperos.iso of=/dev/sdX bs=4M status=progress`
+2. Bootear desde USB
+3. Ejecutar "Hyper Installer" desde el menú
+4. Seguir el asistente de instalación
 
 ## Project Structure
 

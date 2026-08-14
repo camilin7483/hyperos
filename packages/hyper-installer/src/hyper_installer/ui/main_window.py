@@ -1,10 +1,35 @@
-import logging, subprocess
-from PySide6.QtCore import Qt
+import logging, subprocess, json
+from PySide6.QtCore import Qt, QThread, Signal, QObject
 from PySide6.QtWidgets import (QComboBox, QHBoxLayout, QLabel, QLineEdit,
                                QMainWindow, QProgressBar, QPushButton,
-                               QStackedWidget, QVBoxLayout, QWidget)
+                               QStackedWidget, QVBoxLayout, QWidget, QCheckBox, QMessageBox)
 
 logger = logging.getLogger(__name__)
+
+
+class InstallWorker(QObject):
+    """Worker thread for real installation"""
+    progress = Signal(int, str)  # percentage, message
+    finished = Signal(bool, str)  # success, message/error
+    
+    def __init__(self, config: dict):
+        super().__init__()
+        self.config = config
+    
+    def run(self):
+        try:
+            from hyper_installer.services.installer import HyperInstaller
+            installer = HyperInstaller(self.config)
+            
+            def on_progress(pct, msg):
+                self.progress.emit(pct, msg)
+            
+            installer.on_progress = on_progress
+            success, message = installer.install()
+            self.finished.emit(success, message)
+        except Exception as e:
+            logger.exception("Installation failed")
+            self.finished.emit(False, str(e))
 
 
 class InstallerPage(QWidget):
