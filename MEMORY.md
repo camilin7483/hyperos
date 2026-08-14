@@ -66,3 +66,18 @@ HyperOS now has a complete set of GUI applications built on PySide6 (Qt6) with C
 3. Validate installation process
 4. Push to GitHub
 5. Bug fixing and polish for v1.0
+
+## 2026-08-14 — v1.0.0 publicado con CI funcionando (WORK IN PROGRESS)
+- Merge v1.0.0 (--allow-unrelated-histories) desde tarea qwen-code → main; PRs #1-#5 cerrados.
+- CI reparado en main (commits d437dfc → bd8304d → 8d31d4f → dbcc79c):
+  - Build ISO: --privileged, pipeline completo (makepkg core + package.sh como builduser,
+    local-repo + repo-add, sección [hyperos-local] en archiso/pacman.conf — el del perfil,
+    no del host —, mkdir -p out/work antes de mkarchiso).
+  - PKGBUILDs: python-pyside6 → pyside6 (nombre real), core prepare() idempotente,
+    hyper-kernel/gaming/cli instalan src/main.py directo, hyper-tools sha256sums=().
+  - packages.x86_64: rofi-lbonn-wayland → rofi (solo AUR), fsck eliminado (util-linux).
+  - Lint + Test + Build ISO: SUCCESS en 8d31d4f (ISO ~1.9 GB, artefacto hyperos-iso).
+- Release: falló 403 (GITHUB_TOKEN read-only) → permissions: contents: write en
+  release.yml (dbcc79c); tag v1.0.0 movido a dbcc79c, re-disparado, pendiente de verificar.
+- PENDIENTE: rotar PAT expuesto (ghp_Mr67...f3u0), verificar release, limpiar
+  /tmp/opencode/hyperos-test (desechable).
